@@ -15,8 +15,8 @@ class StorageAccount:
     def _blob_client(self: 'StorageAccount') -> BlobClient:
         return self._blob_container_client().get_blob_client(self.__blob_name)
 
-    def upload_blob(self: 'StorageAccount') -> None:
-        self._blob_client().download_blob().readall()
+    def upload_blob(self: 'StorageAccount', data: bytes) -> None:
+        self._blob_client().upload_blob(data)
     
     def download_blob(self: 'StorageAccount') -> bytes:
         return self._blob_client().download_blob().readall()
