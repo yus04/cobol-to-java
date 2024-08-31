@@ -1,1 +1,2 @@
-promptflow
+promptflow==1.15.0
+azure-storage-blob==12.22.0
