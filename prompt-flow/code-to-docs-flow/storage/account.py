@@ -1,17 +1,25 @@
+from azure.storage.blob import BlobServiceClient, ContainerClient, BlobClient
+
 class StorageAccount:
     def __init__(self: 'StorageAccount', connection_string: str, container_name:str, blob_name: str) -> None:
         self.__connection_string = connection_string
         self.__container_name = container_name
         self.__blob_name = blob_name
+
+    def _blob_service_client(self: 'StorageAccount') -> BlobServiceClient:
+        return BlobServiceClient.from_connection_string(self.__connection_string)
     
-    def get_connection_string(self: 'StorageAccount') -> str:
-        return self.__connection_string
+    def _blob_container_client(self: 'StorageAccount') -> ContainerClient:
+        return self._blob_service_client().get_container_client(self.__container_name)
 
-    def get_container_name(self: 'StorageAccount') -> str:
-        return self.__container_name
+    def _blob_client(self: 'StorageAccount') -> BlobClient:
+        return self._blob_container_client().get_blob_client(self.__blob_name)
 
-    def get_blob_name(self: 'StorageAccount') -> str:
-        return self.__blob_name
+    def upload_blob(self: 'StorageAccount') -> None:
+        self._blob_client().download_blob().readall()
+    
+    def download_blob(self: 'StorageAccount') -> bytes:
+        return self._blob_client().download_blob().readall()
 
     # シリアライズメソッド
     def to_dict(self: 'StorageAccount') -> dict:
