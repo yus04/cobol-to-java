@@ -36,6 +36,23 @@
       },
       "source": "components/read_file.py",
       "function": "read_file"
+    },
+    "components/create_file.py": {
+      "type": "python",
+      "inputs": {
+        "storage_account": {
+          "type": [
+            "object"
+          ]
+        },
+        "data": {
+          "type": [
+            "object"
+          ]
+        }
+      },
+      "source": "components/create_file.py",
+      "function": "create_file"
     }
   }
 }

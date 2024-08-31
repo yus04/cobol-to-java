@@ -35,3 +35,11 @@ nodes:
     path: hello.py
   inputs:
     input1: ${hello_prompt.output}
+- name: create_file
+  type: python
+  source:
+    type: code
+    path: components/create_file.py
+  inputs:
+    storage_account: ${inputs.storage_account}
+    data: ${read_file.output}
