@@ -25,7 +25,7 @@
       "source": "hello.py",
       "function": "my_python_tool"
     },
-    "read_file.py": {
+    "components/read_file.py": {
       "type": "python",
       "inputs": {
         "storage_account": {
@@ -34,7 +34,7 @@
           ]
         }
       },
-      "source": "read_file.py",
+      "source": "components/read_file.py",
       "function": "read_file"
     }
   }

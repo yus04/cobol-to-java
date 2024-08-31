@@ -17,7 +17,7 @@ nodes:
   type: python
   source:
     type: code
-    path: read_file.py
+    path: components/read_file.py
   inputs:
     storage_account: ${inputs.storage_account}
   aggregation: false
