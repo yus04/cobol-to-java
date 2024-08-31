@@ -24,6 +24,18 @@
       },
       "source": "hello.py",
       "function": "my_python_tool"
+    },
+    "read_file.py": {
+      "type": "python",
+      "inputs": {
+        "storage_account": {
+          "type": [
+            "object"
+          ]
+        }
+      },
+      "source": "read_file.py",
+      "function": "read_file"
     }
   }
 }
