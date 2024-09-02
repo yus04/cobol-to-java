@@ -1,4 +1,4 @@
-from promptflow import tool
+from promptflow.core import tool
 from storage.account import StorageAccount
 from datetime import datetime, timedelta, timezone
 import os
