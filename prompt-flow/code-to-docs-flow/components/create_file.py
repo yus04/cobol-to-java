@@ -29,3 +29,5 @@ def create_file(storage_account: dict, data: bytes) -> str:
 
     # Blob データのアップロード
     sa.upload_blob(data)
+
+    return data
