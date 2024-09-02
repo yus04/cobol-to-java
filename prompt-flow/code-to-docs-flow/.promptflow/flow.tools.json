@@ -1,30 +1,6 @@
 {
   "package": {},
   "code": {
-    "hello.jinja2": {
-      "type": "prompt",
-      "inputs": {
-        "text": {
-          "type": [
-            "string"
-          ]
-        }
-      },
-      "description": "Please replace the template with your own prompt.",
-      "source": "hello.jinja2"
-    },
-    "hello.py": {
-      "type": "python",
-      "inputs": {
-        "input1": {
-          "type": [
-            "string"
-          ]
-        }
-      },
-      "source": "hello.py",
-      "function": "my_python_tool"
-    },
     "components/read_file.py": {
       "type": "python",
       "inputs": {
@@ -53,6 +29,28 @@
       },
       "source": "components/create_file.py",
       "function": "create_file"
+    },
+    "components/gen_identification_div_prompt.jinja2": {
+      "type": "prompt",
+      "inputs": {
+        "text": {
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "source": "components/gen_identification_div_prompt.jinja2"
+    },
+    "components/gen_identification_div.jinja2": {
+      "type": "llm",
+      "inputs": {
+        "code": {
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "source": "components/gen_identification_div.jinja2"
     }
   }
 }

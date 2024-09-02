@@ -11,7 +11,7 @@ inputs:
 outputs:
   output_prompt:
     type: string
-    reference: ${echo_my_prompt.output}
+    reference: ${create_file.output}
 nodes:
 - name: read_file
   type: python
@@ -21,20 +21,19 @@ nodes:
   inputs:
     storage_account: ${inputs.storage_account}
   aggregation: false
-- name: hello_prompt
-  type: prompt
+- name: gen_identification_div
+  type: llm
   source:
     type: code
-    path: hello.jinja2
+    path: components/gen_identification_div.jinja2
   inputs:
-    text: ""
-- name: echo_my_prompt
-  type: python
-  source:
-    type: code
-    path: hello.py
-  inputs:
-    input1: ${hello_prompt.output}
+    deployment_name: gpt-4o-global-deploy
+    max_tokens: 4096
+    response_format:
+      type: text
+    code: ${read_file.output}
+  connection: gpt-4o-connection
+  api: chat
 - name: create_file
   type: python
   source:
@@ -42,4 +41,4 @@ nodes:
     path: components/create_file.py
   inputs:
     storage_account: ${inputs.storage_account}
-    data: ${read_file.output}
+    data: ${gen_identification_div.output}
