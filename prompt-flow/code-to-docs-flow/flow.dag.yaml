@@ -21,6 +21,13 @@ nodes:
   inputs:
     storage_account: ${inputs.storage_account}
   aggregation: false
+- name: extract_identification_div
+  type: python
+  source:
+    type: code
+    path: components/extract_identification_div.py
+  inputs:
+    code: ${read_file.output}
 - name: gen_identification_div
   type: llm
   source:
@@ -31,9 +38,87 @@ nodes:
     max_tokens: 4096
     response_format:
       type: text
-    code: ${read_file.output}
+    code: ${extract_identification_div.output}
   connection: gpt-4o-connection
   api: chat
+- name: extract_environment_div
+  type: python
+  source:
+    type: code
+    path: components/extract_environment_div.py
+  inputs:
+    code: ${read_file.output}
+- name: gen_environment_div
+  type: llm
+  source:
+    type: code
+    path: components/gen_environment_div.jinja2
+  inputs:
+    deployment_name: gpt-4o-global-deploy
+    max_tokens: 4096
+    response_format:
+      type: text
+    code: ${extract_environment_div.output}
+  connection: gpt-4o-connection
+  api: chat
+- name: extract_data_div
+  type: python
+  source:
+    type: code
+    path: components/extract_data_div.py
+  inputs:
+    code: ${read_file.output}
+- name: gen_data_div
+  type: llm
+  source:
+    type: code
+    path: components/gen_data_div.jinja2
+  inputs:
+    max_tokens: 4096
+    deployment_name: gpt-4o-global-deploy
+    response_format:
+      type: text
+    code: ${extract_data_div.output}
+  connection: gpt-4o-connection
+  api: chat
+- name: system_prompt_procedure_div
+  type: prompt
+  source:
+    type: code
+    path: components/system_prompt_procedure_div.jinja2
+  inputs: {}
+- name: extract_procedure_div
+  type: python
+  source:
+    type: code
+    path: components/extract_procedure_div.py
+  inputs:
+    code: ${read_file.output}
+- name: user_prompt_procedure_div
+  type: prompt
+  source:
+    type: code
+    path: components/user_prompt_procedure_div.jinja2
+  inputs:
+    code: ${extract_procedure_div.output}
+- name: gen_procedure_div
+  type: python
+  source:
+    type: code
+    path: components/gen_procedure_div.py
+  inputs:
+    system_message: ${system_prompt_procedure_div.output}
+    user_message: ${user_prompt_procedure_div.output}
+- name: merge_file
+  type: python
+  source:
+    type: code
+    path: components/merge_file.py
+  inputs:
+    identification_docs: ${gen_identification_div.output}
+    environment_docs: ${gen_environment_div.output}
+    data_docs: ${gen_data_div.output}
+    procedure_docs: ${gen_procedure_div.output}
 - name: create_file
   type: python
   source:
@@ -41,4 +126,4 @@ nodes:
     path: components/create_file.py
   inputs:
     storage_account: ${inputs.storage_account}
-    data: ${gen_identification_div.output}
+    data: ${merge_file.output}

@@ -30,16 +30,17 @@
       "source": "components/create_file.py",
       "function": "create_file"
     },
-    "components/gen_identification_div_prompt.jinja2": {
-      "type": "prompt",
+    "components/extract_identification_div.py": {
+      "type": "python",
       "inputs": {
-        "text": {
+        "code": {
           "type": [
             "string"
           ]
         }
       },
-      "source": "components/gen_identification_div_prompt.jinja2"
+      "source": "components/extract_identification_div.py",
+      "function": "extract_identification_div"
     },
     "components/gen_identification_div.jinja2": {
       "type": "llm",
@@ -51,6 +52,123 @@
         }
       },
       "source": "components/gen_identification_div.jinja2"
+    },
+    "components/extract_procedure_div.py": {
+      "type": "python",
+      "inputs": {
+        "code": {
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "source": "components/extract_procedure_div.py",
+      "function": "extract_procedure_div"
+    },
+    "components/merge_file.py": {
+      "type": "python",
+      "inputs": {
+        "identification_docs": {
+          "type": [
+            "string"
+          ]
+        },
+        "environment_docs": {
+          "type": [
+            "string"
+          ]
+        },
+        "data_docs": {
+          "type": [
+            "string"
+          ]
+        },
+        "procedure_docs": {
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "source": "components/merge_file.py",
+      "function": "merge_file"
+    },
+    "components/extract_environment_div.py": {
+      "type": "python",
+      "inputs": {
+        "code": {
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "source": "components/extract_environment_div.py",
+      "function": "extract_environment_div"
+    },
+    "components/gen_environment_div.jinja2": {
+      "type": "llm",
+      "inputs": {
+        "code": {
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "source": "components/gen_environment_div.jinja2"
+    },
+    "components/extract_data_div.py": {
+      "type": "python",
+      "inputs": {
+        "code": {
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "source": "components/extract_data_div.py",
+      "function": "extract_data_div"
+    },
+    "components/gen_data_div.jinja2": {
+      "type": "llm",
+      "inputs": {
+        "code": {
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "source": "components/gen_data_div.jinja2"
+    },
+    "components/system_prompt_procedure_div.jinja2": {
+      "type": "prompt",
+      "source": "components/system_prompt_procedure_div.jinja2"
+    },
+    "components/user_prompt_procedure_div.jinja2": {
+      "type": "prompt",
+      "inputs": {
+        "code": {
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "source": "components/user_prompt_procedure_div.jinja2"
+    },
+    "components/gen_procedure_div.py": {
+      "type": "python",
+      "inputs": {
+        "system_message": {
+          "type": [
+            "string"
+          ]
+        },
+        "user_message": {
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "source": "components/gen_procedure_div.py",
+      "function": "gen_procedure_div"
     }
   }
 }
